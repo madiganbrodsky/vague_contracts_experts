@@ -177,71 +177,31 @@ function init() {
 
   exp.data_trials = [];
 
-//center embedding, passive, uncovered 
-  stim1 = _.sample(_.filter(stimuli, function(stim) {
-    return stim.version == "unambiguous_uncovered" && stim.center_embedding == "yes" && stim.passive == "yes"
-  }))
-//center embedding, active, uncovered 
-  stim2 = _.sample(_.filter(stimuli, function(stim) {
-    return stim.version == "unambiguous_uncovered" && stim.center_embedding == "yes" && stim.passive == "no" && stim.item != stim1.item
-  })) 
-//no center embedding, passive, uncovered 
-  stim3 = _.sample(_.filter(stimuli, function(stim) {
-    return stim.version == "unambiguous_uncovered" && stim.center_embedding == "no" && stim.passive == "yes" && stim.item != (stim1.item | stim2.item) 
-  }))  
-//no center embedding, active, uncovered 
-  stim4 = _.sample(_.filter(stimuli, function(stim) {
-    return stim.version == "unambiguous_uncovered" && stim.center_embedding == "no" && stim.passive == "no" && stim.item != (stim1.item | stim2.item | stim3.item) 
-  })) 
-//center embedding, passive, covered 
-  stim5 = _.sample(_.filter(stimuli, function(stim) {
-    return stim.version == "unambiguous_covered" && stim.center_embedding == "yes" && stim.passive == "yes" && stim.item != (stim1.item | stim2.item | stim3.item | stim4.item)
-  }))
-//center embedding, active, covered 
-  stim6 = _.sample(_.filter(stimuli, function(stim) {
-    return stim.version == "unambiguous_covered" && stim.center_embedding == "yes" && stim.passive == "no" && stim.item != (stim1.item | stim2.item | stim3.item | stim4.item | stim5.item)
-  })) 
-//no center embedding, passive, covered 
-  stim7 = _.sample(_.filter(stimuli, function(stim) {
-    return stim.version == "unambiguous_covered" && stim.center_embedding == "no" && stim.passive == "yes" && stim.item != (stim1.item | stim2.item | stim3.item | stim4.item | stim5.item | stim6.item)
-  }))  
-//no center embedding, active, covered 
-  stim8 = _.sample(_.filter(stimuli, function(stim) {
-    console.log(stim)
-    return stim.version == "unambiguous_covered" && stim.center_embedding == "no" && stim.passive == "no" && stim.item != (stim1.item | stim2.item | stim3.item | stim4.item | stim5.item | stim6.item | stim7.item)
-  })) 
-//center embedding, passive, controversial  
-  stim9 = _.sample(_.filter(stimuli, function(stim) {
-    return stim.version == "controversial" && stim.center_embedding == "yes" && stim.passive == "yes" //&& stim.item != (stim1.item | stim2.item | stim3.item | stim4.item | stim5.item | stim6.item | stim7.item | stim8.item)
-  }))
-//center embedding, active, controversial 
-  stim10 = _.sample(_.filter(stimuli, function(stim) {
-    return stim.version == "controversial" && stim.center_embedding == "yes" && stim.passive == "no" //&& stim.item != (stim1.item | stim2.item | stim3.item | stim4.item | stim5.item | stim6.item | stim7.item | stim8.item | stim9.item)
-  })) 
-//no center embedding, passive, controversial 
-  stim11 = _.sample(_.filter(stimuli, function(stim) {
-    return stim.version == "controversial" && stim.center_embedding == "no" && stim.passive == "yes" //&& stim.item != (stim1.item | stim2.item | stim3.item | stim4.item | stim5.item | stim6.item | stim7.item | stim8.item | stim9.item | stim10.item)
-  }))  
-//no center embedding, active, controversial 
-  stim12 = _.sample(_.filter(stimuli, function(stim) {
-    return stim.version == "controversial" && stim.center_embedding == "no" && stim.passive == "no" //&& stim.item != (stim1.item | stim2.item | stim3.item | stim4.item | stim5.item | stim6.item | stim7.item | stim8.item | stim9.item | stim10.item |stim11.item)
-  })) 
+  stim_item_list = _.shuffle(_.uniq(_.map(stimuli, function(stim) { return stim.item })))
+  console.log(stim_item_list)
 
-  stims = !demoMode ? stimuli: _.shuffle([stim1, stim2, stim3, stim4, stim5, stim6, stim7, stim8, stim9, stim10, stim11, stim12])
+  // 12 indices total
+  stim_index = [{version: "uncovered", center_embedding: "yes", passive: "yes", item: stim_item_list[0]},
+                {version: "uncovered", center_embedding: "yes", passive: "no", item: stim_item_list[1]},
+                {version: "uncovered", center_embedding: "no", passive: "no", item: stim_item_list[2]},
+                {version: "uncovered", center_embedding: "no", passive: "yes", item: stim_item_list[3]},
+                {version: "covered", center_embedding: "yes", passive: "yes", item: stim_item_list[4]},
+                {version: "covered", center_embedding: "yes", passive: "no", item: stim_item_list[5]},
+                {version: "covered", center_embedding: "no", passive: "no", item: stim_item_list[6]},
+                {version: "covered", center_embedding: "no", passive: "yes", item: stim_item_list[7]},
+                {version: "controversial", center_embedding: "yes", passive: "yes", item: stim_item_list[8]},
+                {version: "controversial", center_embedding: "yes", passive: "no", item: stim_item_list[9]},
+                {version: "controversial", center_embedding: "no", passive: "no", item: stim_item_list[10]},
+                {version: "controversial", center_embedding: "no", passive: "yes", item: stim_item_list[11]}]
 
-  // unambiguous_covered_stim = _.sample(_.filter(stimuli, function(stim) {
-  //   return stim.version == "unambiguous_covered"
-  // }))
+  stim_list = _.map(_.range(0,stim_index.length), function(i){
+    let index = stim_index[i]
+    stim_retrieved = _.filter(stimuli, function(stim){
+    return (stim.version == index.version && stim.center_embedding == index.center_embedding && stim.passive == index.passive && stim.item == index.item)})[0]
+    return (stim_retrieved)
+  })
 
-  // unambiguous_uncovered_stim = _.sample(_.filter(stimuli, function(stim) {
-  //   return stim.version == "unambiguous_uncovered" && stim.item != unambiguous_covered_stim.item
-  // }))
-
-  // controversial_stim = _.sample(_.filter(stimuli, function(stim) {
-  //   return (stim.version == "controversial") && (stim.item != unambiguous_covered_stim.item) && (stim.item != unambiguous_uncovered_stim.item)
-  // }))
-
-  // stims = demoMode ? stimuli : _.shuffle([unambiguous_covered_stim, unambiguous_uncovered_stim, controversial_stim])
+  stims = demoMode ? stimuli: _.shuffle(stim_list)
 
   exp.all_stims = stims;
 
