@@ -109,7 +109,6 @@
       <br>
       <label><input type="radio" name="individual_judgment" value="yes"/>Yes</label>
       <label><input type="radio" name="individual_judgment" value="no"/>No</label>
-      <!--<label><input type="radio" name="individual_judgment" value="cantdecide"/>Can't decide</label> -->
       </center>
     </td>
     </tr>
@@ -127,18 +126,25 @@
 
     <tr>
       <td>
-      <i><div id="question3" style = "float: left; text-align: left">3. How confident are you in your answer to question (1)?</i>  
-      <select id="confidence">
-      <label><option value="-1"/></label>
-      <label><option value="0"/>Not at all Confident</label>
-      <label><option value="1"/>Slightly Confident</label>
-      <label><option value="2"/>Moderately Confident</label>
-      <label><option value="3"/>Very Confident</label>
-      <label><option value="4"/>Totally Confident</label>
-    </select>
-    </div>
-    </td>
+      <i>
+        <div id="question3" style = "float: left; text-align: left"> 
+          3. How confident are you in your answer to question (1)?
+        </div>
+      </i> 
+      </td>
     </tr>
+
+    <tr>
+      <td>
+        <center>
+          <br>
+          <div class="slidecontainer">
+          <label>Not At All Confident<input type ="range" id="confidence" name="confidence"/>Extremely Confident</label>
+          </div>
+        </center>
+      </td>
+    </tr>
+
 
     <tr>
     <td>
