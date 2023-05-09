@@ -36,6 +36,13 @@ function make_slides(f) {
     }
   });
 
+  // slides.check = slide({
+  //   name : "attention_check", 
+  //   present: exp.check_stims, 
+
+    
+  // })
+
   slides.trial = slide({
     name : "trial",
     present: exp.all_stims,
@@ -53,7 +60,7 @@ function make_slides(f) {
       this.title = stim.Title;
 
       $("#vignette").html(this.header + "<p>" + this.continuation);
-      $("#question").html('<i>1. Do you think that the claim is covered under ' + this.item + ' as it appears in the policy?</i>');
+      $("#question").html('<i>1. Do you think that the claim is covered under "' + this.item + '" as it appears in the policy?</i>');
       $("#error_percept").hide();
       $("#error_num").hide();
       if(!demoMode) {
@@ -75,7 +82,7 @@ function make_slides(f) {
     this.population_judgment = $("#population_judgment").val()
     this.confidence = $("#confidence").val()
     verifyPopJudgment = between0and100(this.population_judgment)
-    questions1or3NotAnswered = (this.individual_judgment === undefined || $("#confidence").val() == -1)
+    questions1or3NotAnswered = (this.individual_judgment === undefined || $("#confidence").val() == 50)
     if(!verifyPopJudgment && questions1or3NotAnswered) {
       $("#error_num").show();
       $("#error_percept").show();
@@ -91,7 +98,7 @@ function make_slides(f) {
       this.log_responses();
       $('input:radio[name="individual_judgment"]:checked')[0].checked = false;      
       document.getElementById('population_judgment').value = '';
-      document.getElementById('confidence').value = -1;
+      document.getElementById('confidence').value = 50;
       _stream.apply(this);
     }
   },
@@ -177,7 +184,7 @@ function init() {
 
   exp.data_trials = [];
 
-  stim_item_list = _.shuffle(_.uniq(_.map(stimuli, function(stim) { return stim.item })))
+  stim_item_list = _.shuffle(_.uniq(_.map(stimuli, function(stim) {return stim.item })))
   console.log(stim_item_list)
 
   // 12 indices total
