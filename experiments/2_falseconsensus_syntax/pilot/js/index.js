@@ -176,37 +176,38 @@ slides.subj_info =  slide({
 function init() {
 
   exp.data_trials = [];
-  stim_item_list = _.shuffle(_.uniq(_.map(stimuli, function(stim) {return stim.item })))
+  // take fillers out of list of stim items that we want to shuffle
+  critical_items = _.filter(stimuli, function(stim) { return !(["filler_uncovered","filler_covered"].includes(stim.version)) } )
+  stim_item_list = _.shuffle(_.uniq(_.map(critical_items, function(stim) {return stim.item })))
   console.log(stim_item_list)
 
   // 12 indices total
-  stim_index = [{version: "filler_uncovered", center_embedding: "no", passive: "no", item: stim_item_list[0]},
-                {version: "filler_covered", center_embedding: "no", passive: "no", item: stim_item_list[1]},
-                {version: "uncovered", center_embedding: "yes", passive: "yes", item: stim_item_list[2]},
-                {version: "uncovered", center_embedding: "yes", passive: "no", item: stim_item_list[3]},
-                {version: "uncovered", center_embedding: "no", passive: "no", item: stim_item_list[4]},
-                {version: "uncovered", center_embedding: "no", passive: "yes", item: stim_item_list[5]},
-                {version: "covered", center_embedding: "yes", passive: "yes", item: stim_item_list[6]},
-                {version: "covered", center_embedding: "yes", passive: "no", item: stim_item_list[7]},
-                {version: "covered", center_embedding: "no", passive: "no", item: stim_item_list[8]},
-                {version: "covered", center_embedding: "no", passive: "yes", item: stim_item_list[9]},
-                {version: "controversial", center_embedding: "yes", passive: "yes", item: stim_item_list[10]},
-                {version: "controversial", center_embedding: "yes", passive: "no", item: stim_item_list[11]},
-                {version: "controversial", center_embedding: "no", passive: "no", item: stim_item_list[12]},
-                {version: "controversial", center_embedding: "no", passive: "yes", item: stim_item_list[13]}]
+  stim_index = [{version: "uncovered", center_embedding: "yes", passive: "yes", item: stim_item_list[0]},
+                {version: "uncovered", center_embedding: "yes", passive: "no", item: stim_item_list[1]},
+                {version: "uncovered", center_embedding: "no", passive: "no", item: stim_item_list[2]},
+                {version: "uncovered", center_embedding: "no", passive: "yes", item: stim_item_list[3]},
+                {version: "covered", center_embedding: "yes", passive: "yes", item: stim_item_list[4]},
+                {version: "covered", center_embedding: "yes", passive: "no", item: stim_item_list[5]},
+                {version: "covered", center_embedding: "no", passive: "no", item: stim_item_list[6]},
+                {version: "covered", center_embedding: "no", passive: "yes", item: stim_item_list[7]},
+                {version: "controversial", center_embedding: "yes", passive: "yes", item: stim_item_list[8]},
+                {version: "controversial", center_embedding: "yes", passive: "no", item: stim_item_list[9]},
+                {version: "controversial", center_embedding: "no", passive: "no", item: stim_item_list[10]},
+                {version: "controversial", center_embedding: "no", passive: "yes", item: stim_item_list[11]}]
 
-  //adds two attention check items first
-  stim_list = [stim_index[0], stim_index[1]]
-
-  //appends the randomly shuffled critical trials to the list with the attention check items
-  stim_list += _.map(_.range(2,stim_index.length), function(i){
-    let index = stim_index[i]
-    stim_retrieved = _.filter(stimuli, function(stim){
-    return (stim.version == index.version && stim.center_embedding == index.center_embedding && stim.passive == index.passive && stim.item == index.item)})[0]
-    return (stim_retrieved)
+  filler_list = _.filter(stimuli, function(stim) {
+    return ["filler_uncovered","filler_covered"].includes(stim.version)
   })
 
-  stims = demoMode ? stimuli: _.shuffle(stim_list)
+  //appends the randomly shuffled critical trials to the list with the attention check items
+  stim_list = _.map(_.range(stim_index.length), function(i){
+    let index = stim_index[i]
+    let stim_retrieved = _.filter(stimuli, function(stim){
+    return (stim.version == index.version && stim.center_embedding == index.center_embedding && stim.passive == index.passive && stim.item == index.item)})[0]
+    return(stim_retrieved)
+  })
+
+  stims = demoMode ? stimuli : Array.prototype.concat(filler_list, _.shuffle(stim_list))
 
   exp.all_stims = stims;
 
