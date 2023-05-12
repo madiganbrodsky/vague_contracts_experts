@@ -75,7 +75,7 @@ function make_slides(f) {
     this.population_judgment = $("#population_judgment").val()
     this.confidence = $("#confidence").val()
     verifyPopJudgment = between0and100(this.population_judgment)
-    questions1or3NotAnswered = (this.individual_judgment === undefined || $("#confidence").val() == 50)
+    questions1or3NotAnswered = (this.individual_judgment === undefined || $("#confidence").val() == 0)
     if(!verifyPopJudgment && questions1or3NotAnswered) {
       $("#error_num").show();
       $("#error_percept").show();
@@ -91,7 +91,7 @@ function make_slides(f) {
       this.log_responses();
       $('input:radio[name="individual_judgment"]:checked')[0].checked = false;      
       document.getElementById('population_judgment').value = '';
-      document.getElementById('confidence').value = 50;
+      document.getElementById('confidence').value = 0;
       _stream.apply(this);
     }
   },
@@ -103,7 +103,6 @@ function make_slides(f) {
           "population_judgment" : parseInt(this.population_judgment),
           "confidence" : this.confidence,
           "item" : this.item,
-          "title" : this.title,
           "version" : this.version,
           "center_embedding": this.center_embedding, //added for extension
           "passive": this.passive,                    //added for extension
@@ -111,8 +110,6 @@ function make_slides(f) {
           "continuation" : this.continuation,
           "time": (new Date()) - this.trial_start,
           "slide_number_in_experiment" : exp.phase,
-          "response_accent": exp.sliderPost_accent,
-          "response_understand": exp.sliderPost_understand,
         });
     }
 
