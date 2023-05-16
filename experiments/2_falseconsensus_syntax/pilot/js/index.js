@@ -91,8 +91,9 @@ function make_slides(f) {
     this.population_judgment = $("#population_judgment").val()
     // this.confidence = $("#single_slider0").val()
     this.confidence = exp.certaintySliderPost
+    console.log(exp.certaintySliderPost)
     verifyPopJudgment = between0and100(this.population_judgment)
-    questions1or3NotAnswered = (this.individual_judgment === undefined || $("#single_slider0").val() == -1)
+    questions1or3NotAnswered = (this.individual_judgment === undefined || this.confidence == undefined)
     if(!verifyPopJudgment && questions1or3NotAnswered) {
       $("#error_num").show();
       $("#error_percept").show();
@@ -108,7 +109,7 @@ function make_slides(f) {
       this.log_responses();
       $('input:radio[name="individual_judgment"]:checked')[0].checked = false;      
       document.getElementById('population_judgment').value = '';
-      document.getElementById('single_slider0').value = 0;
+      // document.getElementById('single_slider0').value = 0;
       _stream.apply(this);
     }
   },
