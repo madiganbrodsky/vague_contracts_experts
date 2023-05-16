@@ -20,7 +20,7 @@ var between0and100 = function (input)
 }
 
 function make_slides(f) {
-  var   slides = {};
+  var   slides = {}
 
   slides.i0 = slide({
      name : "i0",
@@ -36,12 +36,23 @@ function make_slides(f) {
     }
   });
 
+  // make_slider_callback : function(i) {
+  //     return function(event, ui) {
+  //       exp.certaintySliderPost = ui.value;
+  //     };
+  //   },
+
+
+
+
   slides.trial = slide({
     name : "trial",
     present: exp.all_stims,
 
     // PRESENT THE SLIDE
     present_handle: function(stim) {
+      exp.certaintySliderpPost = -1; 
+      utils.make_slider("#single_slider0", this.make_certaintySlider_callback());
       this.trial_start = new Date();
       this.stim = stim;
       this.item = stim.item;
@@ -62,7 +73,12 @@ function make_slides(f) {
         $("#demoName").html("<b>Item name</b>: " + stim.Title);
         $("#demoCondition").html("<b>Item condition</b>: " + this.version);
       }
+    },
 
+    make_certaintySlider_callback : function(i) {
+      return function(event, ui) {
+        exp.certaintySliderPost = ui.value;
+      };
     },
 
     button_demo : function() {
@@ -73,9 +89,10 @@ function make_slides(f) {
     button_percept : function() {
     this.individual_judgment = $('input[name="individual_judgment"]:checked').val()
     this.population_judgment = $("#population_judgment").val()
-    this.confidence = $("#confidence").val()
+    // this.confidence = $("#single_slider0").val()
+    this.confidence = exp.certaintySliderPost
     verifyPopJudgment = between0and100(this.population_judgment)
-    questions1or3NotAnswered = (this.individual_judgment === undefined || $("#confidence").val() == 0)
+    questions1or3NotAnswered = (this.individual_judgment === undefined || $("#single_slider0").val() == -1)
     if(!verifyPopJudgment && questions1or3NotAnswered) {
       $("#error_num").show();
       $("#error_percept").show();
@@ -91,7 +108,7 @@ function make_slides(f) {
       this.log_responses();
       $('input:radio[name="individual_judgment"]:checked')[0].checked = false;      
       document.getElementById('population_judgment').value = '';
-      document.getElementById('confidence').value = 0;
+      document.getElementById('single_slider0').value = 0;
       _stream.apply(this);
     }
   },
