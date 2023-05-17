@@ -7,14 +7,14 @@ library(EnvStats)
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
-d <- read_csv("../../proliferate/1_falseconsensus/main-merged.csv")
+d <- read_csv("/Users/madiganbrodsky/Desktop/legal_interpretation/vague_contracts_syntax/data/1_falseconsensus_/vague_contracts_syntax-merged.csv")
 
 
 # EXCLUSIONS
 
 excludedWorkers <- (d %>%
-                      filter((version == "unambiguous_uncovered" & individual_judgment == "yes") |
-                               (version == "unambgiuous_covered" & individual_judgment == "no")) %>%
+                      filter((version == "filler_uncovered" & individual_judgment == "yes") |
+                               (version == "filler_covered" & individual_judgment == "no")) %>%
                       group_by(workerid) %>%
                       summarise(n = n()) %>%
                       filter(n > 1))$workerid
@@ -25,13 +25,92 @@ d <- d %>%
 # DATA TRANSFORMATIONS
 
 transformed <- d %>%
-  select(workerid,title,version,individual_judgment,population_judgment,confidence) %>%
-  group_by(version,title) %>%
+  select(workerid,item,version,center_embedding, passive, individual_judgment,population_judgment,confidence) %>%
+  group_by(version,item) %>%
   mutate(total = n()) %>%
   ungroup() %>%
-  group_by(version,title,individual_judgment) %>%
+  group_by(version,item,individual_judgment) %>%
   mutate(count = n()) %>%
   mutate(true_proportion = binom.confint(x = count, n  = total, methods = "exact")$mean * 100, 
          ci_low = binom.confint(x = count, n  = total, methods = "exact")$lower * 100,
          ci_high = binom.confint(x = count, n  = total, methods = "exact")$upper * 100) %>%
-  mutate(difference = as.numeric(population_judgment) - true_proportion)
+  mutate(difference = as.numeric(population_judgment) - true_proportion) %>% 
+  mutate(syntax_condition = ifelse(center_embedding == "yes" && passive == "yes", 
+                                    "CEP", 
+                                    ifelse(center_embedding == "yes" && passive == "no", 
+                                           "CEA", 
+                                           ifelse(center_embedding == "no" && passive == "yes", 
+                                                  "NCEP", 
+                                                  "NCEA")))) %>% 
+  mutate(majority_vs_minority_response = ifelse(individual_judgment == "yes" && true_proportion >= 50, 
+                                              "majority", 
+                                              ifelse( individual_judgment == "yes" && true_proportion < 50, 
+                                                     "minority",
+                                                     ifelse( individual_judgment == "no" && true_proportion >= 50, 
+                                                            "majority",
+                                                            "minority"))))
+
+props <- transformed %>%
+  filter(version %in% c("uncovered","covered", "controversial")) %>% 
+  group_by(item) %>% ## 'title' is added for posthoc analysis
+  mutate(yes = case_when(individual_judgment == "yes" ~ 1,
+                         TRUE ~ 0),
+         no = case_when(individual_judgment == "no" ~ 1,
+                        TRUE ~ 0),
+         cantdecide = case_when(individual_judgment == "cantdecide" ~ 1,
+                                TRUE ~ 0)) %>%
+  mutate(nYes = sum(yes), nNo =sum(no), nCantDecide = sum(cantdecide),
+            propYes = sum(yes)/n(), propNo = sum(no)/n(), propCantDecide = sum(cantdecide)/n(), meanError = mean(difference))
+
+
+
+#################################PLOTS#########################################
+# plot 1a: proportion of yes responses (y), syntax condition (x), color (condition), facet (maj vs min in non-DPL case)
+ggplot(data = props, 
+       mapping = aes(x = syntax_condition, 
+                     y = propYes)) + 
+  geom_jitter(aes(color = version), alpha = 0.5) + 
+  facet_wrap(~majority_vs_minority_response)
+
+# plot 1a: proportion of yes responses (y), syntax condition (x), color (condition), facet (yes vs no response in DPL case)
+ggplot(data = props, 
+       mapping = aes(x = syntax_condition, 
+                     y = propYes)) + 
+  geom_jitter(aes(color = version), alpha = 0.5) + 
+  facet_wrap(~individual_judgment)
+
+# plot 2a: mean agreement estimate (y), syntax condition (x), color (condition), facet (maj vs min in non-DPL case)
+ggplot(data = props, 
+       mapping = aes(x = syntax_condition, 
+                     y = population_judgment)) + 
+  geom_jitter(aes(color = version), alpha = 0.5) + 
+  facet_wrap(~majority_vs_minority_response)
+# plot 2a: mean agreement estimate (y), syntax condition (x), color (condition), facet (yes vs no in non-DPL case)
+ggplot(data = props, 
+       mapping = aes(x = syntax_condition, 
+                     y = population_judgment)) + 
+  geom_jitter(aes(color = version), alpha = 0.5) + 
+  facet_wrap(~individual_judgment)
+
+#plot 3: mean agreement estimate (y), prop yes (x), facet by syntax condition, color (condition )
+ggplot(data = props, 
+       mapping = aes(x = population_judgment, 
+                     y = propYes)) + 
+  geom_jitter(aes(color = version), alpha = 0.5) + 
+  facet_wrap(~syntax_condition)
+
+#plot 4: error (y), syntax condition (x)
+ggplot(data = props, 
+       mapping = aes(x = syntax_condition, 
+                     y = difference)) + 
+  geom_jitter(aes(color = version), alpha = 0.5) 
+
+#plot 5: 
+ggplot(data = props, 
+       mapping = aes(x = confidence, 
+                     y = propYes)) + 
+  geom_jitter(aes(color = individual_judgment), alpha = 0.5) + 
+  facet_wrap(~syntax_condition)
+
+
+
