@@ -36,23 +36,16 @@ function make_slides(f) {
     }
   });
 
-  // make_slider_callback : function(i) {
-  //     return function(event, ui) {
-  //       exp.certaintySliderPost = ui.value;
-  //     };
-  //   },
-
-
-
-
   slides.trial = slide({
     name : "trial",
     present: exp.all_stims,
 
     // PRESENT THE SLIDE
     present_handle: function(stim) {
-      exp.certaintySliderpPost = -1; 
-      utils.make_slider("#single_slider0", this.make_certaintySlider_callback());
+
+      exp.certaintySliderPost = -1; 
+      utils.make_slider("#single_slider0", this.make_certaintySlider_callback(0));
+
       this.trial_start = new Date();
       this.stim = stim;
       this.item = stim.item;
@@ -77,7 +70,12 @@ function make_slides(f) {
 
     make_certaintySlider_callback : function(i) {
       return function(event, ui) {
-        exp.certaintySliderPost = ui.value;
+        if (ui.value == 0.5){
+          exp.certaintySliderPost = -1; 
+        }
+        else {
+          exp.certaintySliderPost = ui.value;
+        }
       };
     },
 
@@ -89,11 +87,10 @@ function make_slides(f) {
     button_percept : function() {
     this.individual_judgment = $('input[name="individual_judgment"]:checked').val()
     this.population_judgment = $("#population_judgment").val()
-    // this.confidence = $("#single_slider0").val()
     this.confidence = exp.certaintySliderPost
-    console.log(exp.certaintySliderPost)
+    console.log(this.confidence)
     verifyPopJudgment = between0and100(this.population_judgment)
-    questions1or3NotAnswered = (this.individual_judgment === undefined || this.confidence == undefined)
+    questions1or3NotAnswered = (this.individual_judgment == undefined || this.confidence == -1)
     if(!verifyPopJudgment && questions1or3NotAnswered) {
       $("#error_num").show();
       $("#error_percept").show();
@@ -109,7 +106,7 @@ function make_slides(f) {
       this.log_responses();
       $('input:radio[name="individual_judgment"]:checked')[0].checked = false;      
       document.getElementById('population_judgment').value = '';
-      // document.getElementById('single_slider0').value = 0;
+      //document.getElementById('single_slider0').value = undefined;
       _stream.apply(this);
     }
   },
