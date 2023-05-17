@@ -1,9 +1,0 @@
-workerid,proliferate.condition,Browser,OS,screenH,screenW,error
-7,condition1,Firefox,Windows,960,1536,
-8,condition1,Chrome,Windows,864,1536,
-4,condition1,Chrome,Windows,960,1707,
-2,condition1,Firefox,Windows,900,1600,
-6,condition1,Firefox,Windows,1440,2560,
-5,condition1,Chrome,Windows,1080,1920,
-9,condition1,Chrome,Mac,1440,2560,
-3,condition1,Chrome,Mac,900,1440,

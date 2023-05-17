@@ -1,9 +1,0 @@
-workerid,proliferate.condition,affiliation,age,asses,comments,education,enjoyment,gender,language,legaltraining,problems,race,error
-7,condition1,0,31,Yes,,3,2,Male,English,0,,White,
-8,condition1,2,26,Yes,,4,2,Female,English,0,,White,
-4,condition1,6,34,Yes,,1,2,Male,english,0,no,White,
-2,condition1,0,31,Yes,No comments. Thanks.,3,1,Female,English,0,No problems.,White,
-6,condition1,1,30,Yes,,1,1,Female,eNGLISH,0,,White,
-5,condition1,1,39,Yes,,4,1,Male,English,0,"same question twice in a row, but otherwise no",White,
-9,condition1,0,30,Yes,,2,2,Male,English,0,No problems.,AA,
-3,condition1,0,30,Yes,,3,2,Female,English,0,No,White,
