@@ -219,6 +219,21 @@ function init() {
     return(stim_retrieved)
   })
 
+  // LOGS FOR TESTING
+  console.log("Number of 'center_embedding : yes' stims: " + (_.filter(critical_items, function(stim) {return stim.center_embedding == "yes" })).length)
+  console.log("Number of 'center_embedding : no' stims: " + (_.filter(critical_items, function(stim) {return stim.center_embedding == "no" })).length)
+  console.log("Number of 'passive : yes' stims: " + (_.filter(critical_items, function(stim) {return stim.passive == "yes" })).length)
+  console.log("Number of 'passive : no' stims: " + (_.filter(critical_items, function(stim) {return stim.passive == "no" })).length)
+  console.log("Number of 'version : covered' stims: " + (_.filter(critical_items, function(stim) {return stim.version == "covered" })).length)
+  console.log("Number of 'version : uncovered' stims: " + (_.filter(critical_items, function(stim) {return stim.version == "uncovered" })).length)
+  console.log("Number of 'version : controversial' stims: " + (_.filter(critical_items, function(stim) {return stim.version == "controversial" })).length)
+  
+  var allItems = _.uniq(_.map(critical_items, function(stim) {return stim.item }))
+  for(i in allItems) {
+      console.log("Number of 'item : " + allItems[i] + "' stims: " + (_.filter(critical_items, function(stim) {return stim.item == allItems[i] })).length)
+  }
+
+
   stims = demoMode ? stimuli : Array.prototype.concat(filler_list, _.shuffle(stim_list))
 
   exp.all_stims = stims;
@@ -251,15 +266,6 @@ function init() {
       exp.go();
     }
   });
-
-  $("#audio_player").bind("ended", function () {
-        // if (! $("#attention_check").data("dont-show")) {
-          // $("#attention_check").show();
-
-        // }
-        $("#audio_player").data("num-plays", $("#audio_player").data("num-plays") + 1);
-
-      });
 
   $("#start_button").click(function() {
     if (turk.previewMode) {
