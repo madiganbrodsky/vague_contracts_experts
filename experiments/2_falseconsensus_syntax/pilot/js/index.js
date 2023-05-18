@@ -63,8 +63,10 @@ function make_slides(f) {
       if(!demoMode) {
         $("#demoView").hide();
       } else {
-        $("#demoName").html("<b>Item name</b>: " + stim.Title);
+        $("#demoName").html("<b>Item name</b>: " + stim.item);
         $("#demoCondition").html("<b>Item condition</b>: " + this.version);
+        $("#demoPassive").html("<b>Passive?</b>: " + this.passive);
+        $("#demoCenterEmbedding").html("<b>Center embedding?</b>: " + this.center_embedding);
       }
     },
 
