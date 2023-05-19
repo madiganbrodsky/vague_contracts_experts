@@ -8,11 +8,13 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 source("../helpers.R")
 
+theme_set(theme_bw())
+
 d <- read_csv("../../data/1_falseconsensus_/vague_contracts_syntax-merged.csv")
 
-# EXCLUSIONS
+#################################EXCLUSIONS#################################
 
-# # EXCLUDE WORKERS WHO MAKE MORE THAN ONE ERROR ON THE FILLER TRIALS 
+#EXCLUDE WORKERS WHO MAKE AN ERROR ON THE FILLER TRIALS 
 
 excludedWorkers <- (d %>%
                       filter((version == "filler_uncovered" & individual_judgment == "yes") |
@@ -21,12 +23,25 @@ excludedWorkers <- (d %>%
                       summarise(n = n()) %>%
                       filter(n > 0))$workerid
 
-# # TODO: EXCLUDE WORKERS WHO SELF-REPORT A NATIVE LANGUAGE OTHER THAN ENGLISH
+#EXCLUDE DUPLICATE WORKERS 
+  duplicateworkerids <- c(2, 3, 4, 5, 6, 7, 8, 9)
+  
+  excludedWorkers_duplicate <- unique((d %>%
+                                         filter(workerid %in% duplicateworkerids))$workerid)
+
+#EXCLUDE WORKERS WHO SELF-REPORT A NATIVE LANGUAGE OTHER THAN ENGLISH
+nonEnglishNativeLanguages <- c("Chinese", "Spanish", "spanish", "Cantonese", "Korean")
+
+excludedWorkers_nonNative <- unique((d %>%
+                                       filter(subject_information.language %in% nonEnglishNativeLanguages))$workerid)
+
 
 d <- d %>% 
-  filter(!(workerid %in% excludedWorkers))
+  filter(!(workerid %in% excludedWorkers)) %>%
+  filter(!(workerid %in% excludedWorkers_duplicate)) %>% 
+  filter(!(workerid %in% excludedWorkers_nonNative))
 
-# DATA TRANSFORMATIONS
+#################################DATA TRANSFORMATIONS#################################
 
 transformed <- d %>%
   filter(version %in% c("uncovered","covered","controversial")) %>% 
@@ -66,7 +81,7 @@ props <- transformed %>%
   ungroup() %>%
   mutate(version = relevel(as.factor(version), ref = "uncovered")) 
 
-# REGRESSIONS
+################################# REGRESSIONS#################################
 
 # # MODEL 1: Q1 ENTROPY FROM CENTERED FIXED EFFECTS OF CTR. EMBEDDING, PASSIVE, CONDITION, AND THEIR INTERACTION, W/ MAX RANEF. STRUCTURE JUSTIFIED BY DESIGN. 
 
@@ -76,6 +91,8 @@ centered_m1 <- cbind(props, myCenter(data.frame(props[,c("passive","center_embed
 
 m1 <- brm(entropy ~ cpassive * ccenter_embedding * version + (1 + (cpassive * ccenter_embedding * version)|item),
           data = centered_m1)
+
+##################################################################################################
 
 # # MODEL 2: Q2 RESPONSE FROM CENTERED FIXED EFFECTS OF CTR. EMBEDDING, PASSIVE, INDIVIDUAL RESPONSE TYPE, EMPIRICAL RESPONSE PROPORTION, AND THEIR INTERACTION, W/ MAX RANEF. STRUCTURE JUSTIFIED BY DESIGN. 
 
@@ -87,53 +104,115 @@ m2 <- brm(population_judgment ~ cpassive * ccenter_embedding * cindividual_judgm
           data = centered_m2)
 
 #################################PLOTS#########################################
-# plot 1a: proportion of yes responses (y), syntax condition (x), color (condition), facet (maj vs min in non-DPL case)
+# plot 1: proportion of yes responses (y), syntax condition (x), facet (condition)
 ggplot(data = props, 
        mapping = aes(x = syntax_condition, 
                      y = propYes)) + 
-  geom_jitter(aes(color = version), alpha = 0.5) # + 
-  # facet_wrap(~majority_vs_minority_response)
+  geom_jitter(color = "darkmagenta", alpha = 0.5) + 
+  stat_smooth(aes(group = version), fill = "lightblue", color = "darkmagenta", size = 1, alpha = 0.3, method = "lm") +
+  facet_wrap(~version) + 
+  ylab("Proportion of 'Yes' Responses for each item") + 
+  xlab("Difficult-to-Process Language Presence")
 
-# plot 1a: proportion of yes responses (y), syntax condition (x), color (condition), facet (yes vs no response in DPL case)
-ggplot(data = props, 
-       mapping = aes(x = syntax_condition, 
-                     y = propYes)) + 
-  geom_jitter(aes(color = version), alpha = 0.5) # + 
-  # facet_wrap(~individual_judgment)
+##################################################################################
 
-# plot 2a: mean agreement estimate (y), syntax condition (x), color (condition), facet (maj vs min in non-DPL case)
-ggplot(data = props, 
+# plot 2: PROP YES VS. SYNTAX FOR 12 ITEMS (collapsed across coverage conditions) ??? 
+ # ggplot(data = props,
+ #        mapping = aes(x = syntax_condition,
+ #                      y = propYes)) +
+ #   geom_path(aes(color = item), alpha = 0.4) +
+ #   geom_point(aes(color = item), alpha = 0.4)  
+   
+#################################################################################
+   
+
+# plot 3: mean agreement estimate (y), syntax condition (x), color (condition), facet (maj vs min in non-DPL case)
+ggplot(data = transformed, 
        mapping = aes(x = syntax_condition, 
                      y = population_judgment)) + 
-  geom_jitter(aes(color = version), alpha = 0.5) # + 
-  # facet_wrap(~majority_vs_minority_response)
+  geom_jitter(aes(color = individual_judgment), alpha = 0.4) + 
+  stat_smooth(aes(group = version), fill = "lightblue", color = "darkmagenta", size = 1, alpha = 0.3, method = "lm") +
+  facet_wrap(~version) + 
+  ylab("Mean Agreement Estimates for each item") + 
+  xlab("Difficult-to-Process Language Presence")
+   
+##################################################################################
 
-# plot 2a: mean agreement estimate (y), syntax condition (x), color (condition), facet (yes vs no in non-DPL case)
-ggplot(data = props, 
-       mapping = aes(x = syntax_condition, 
-                     y = population_judgment)) + 
-  geom_jitter(aes(color = version), alpha = 0.5) # + 
+# plot 4: entropy(y), syntax(x), (one with facet (y/n) and one collapsed)
+
+entropy_plot <- props %>% 
+  group_by(syntax_condition) 
+
+
+  ggplot(data = entropy_plot, 
+        mapping = aes(x = syntax_condition,
+                     y = entropy)) +
+  geom_bar() # +
   # facet_wrap(~individual_judgment)
+   
+##################################################################################
 
-#plot 3: mean agreement estimate (y), prop yes (x), facet by syntax condition, color (condition )
-ggplot(data = props, 
-       mapping = aes(x = population_judgment, 
-                     y = propYes)) + 
-  geom_jitter(aes(color = version), alpha = 0.5) + 
-  facet_wrap(~syntax_condition)
+#plot 5: mean agreement estimate (y), prop of response (x), color (syntax), facet (yes vs no  & condition)
+ggplot(data = transformed, 
+       mapping = aes(x = true_proportion, #???? 
+                     y = population_judgment)) + 
+  geom_jitter(aes(color = syntax_condition), alpha = 0.5) + 
+  stat_smooth(aes(group = syntax_condition, color = syntax_condition), size = 1, alpha = 0.25, method = "lm") +
+  facet_wrap(~individual_judgment +version) + 
+  xlab("Proportion of Responses for each item") + 
+  ylab("Population Agreement Estimates for each item")
 
-#plot 4: error (y), syntax condition (x)
-ggplot(data = props, 
-       mapping = aes(x = syntax_condition, 
-                     y = difference)) + 
-  geom_jitter(aes(color = version), alpha = 0.5) 
-
-#plot 5: 
-ggplot(data = props, 
+##################################################################################
+#PLOT 6: Histogram of error / condition, facet by response type
+   transformed %>%
+     ggplot(aes(x = difference, fill = version)) + 
+     geom_histogram(position="identity", alpha = 0.3) +
+     xlab("Participant error") +
+     ylab("Count") +
+     labs(fill='Condition') +
+     theme_bw() +
+     theme(legend.position = "top",
+           text = element_text(size=8)) + 
+     guides(fill=guide_legend(nrow=1,byrow=TRUE)) + 
+     facet_wrap(~individual_judgment)
+   
+##################################################################################
+#PLOT 7: Histogram of error / condition, facet by syntax
+   transformed %>%
+     ggplot(aes(x = difference, fill = version)) +
+     geom_histogram(position="identity", alpha = 0.3) +
+     xlab("Participant error") +
+     ylab("Count") +
+     labs(fill='Condition') +
+     theme_bw() +
+     theme(legend.position = "top",
+           text = element_text(size=8)) + 
+     guides(fill=guide_legend(nrow=1,byrow=TRUE)) + 
+     facet_wrap(~syntax_condition)
+   
+##################################################################################
+#plot 8: CONFIDENCE vs. PROP OF RESPONSE
+ggplot(data = transformed, 
        mapping = aes(x = confidence, 
-                     y = propYes)) + 
-  geom_jitter(aes(color = individual_judgment), alpha = 0.5) + 
-  facet_wrap(~syntax_condition)
+                     y = true_proportion)) + 
+  geom_jitter(aes(color = syntax_condition), alpha = 0.5) + 
+  stat_smooth(aes(group = syntax_condition, color = syntax_condition), size = 1, alpha = 0.25, method = "lm") +
+  facet_wrap(~individual_judgment +version) + 
+  xlab("Confidence of Individual Interpretive Judgment") + 
+  ylab("Proportion of Responses for each item") 
+   
+##################################################################################
+#plot 9: CONFIDENCE vs. MEAN AGREEMENT ESTIMATE
+ggplot(data = transformed, 
+       mapping = aes(x = confidence, 
+                     y = population_judgment)) + 
+  geom_jitter(aes(color = syntax_condition), alpha = 0.5) + 
+  stat_smooth(aes(group = syntax_condition, color = syntax_condition), size = 1, alpha = 0.25, method = "lm") +
+  facet_wrap(~individual_judgment +version) + 
+  xlab("Confidence of Individual Interpretive Judgment") + 
+  ylab("Proportion Estimates of Agreement") 
+   
+##################################################################################
 
 
 
