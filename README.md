@@ -8,3 +8,11 @@ _In a first step towards understanding the source(s) of this variability, we sho
 
 
 The current (pilot) experiment aims to replicate the human-experimental portion of the original study, with additional conditions manipulating the synactic form of the insurance definition. The four versions of the insurance definitions contain difficult-to-process syntactic features that are known to be extraordinarily prevalent in legal contracts (Martinez & Gibson 2020), namely center-embedded clauses and passive voice. In so far as our original study demonstrated that humans are bad reporters of how others will interpret text, and to the extent that 1) it is important for legal language to be interpreted as intended and 2), legal documents are ridden with interpretive difficulties, it will be valuable to investigate what, if any, systematic relationship exists between these interpretive difficulities and measures of interpretive consensus. 
+
+This repository that contains the following sub-directories:
+
+The directory experiments contains the code used to run the experiment. 
+
+The directory data contains the (anonymized) data from the experiment. 
+
+The directory analyses contains the R scripts used for analysis and visualization, and post-hoc analyses. 
