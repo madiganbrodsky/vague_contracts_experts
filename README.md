@@ -11,8 +11,8 @@ The current (pilot) experiment aims to replicate the human-experimental portion 
 
 This repository that contains the following sub-directories:
 
-The directory data contains the (anonymized) data from the experiment and the data from the LLM portion of the paper.
+The directory experiments contains the code used to run the experiment. 
 
-The directory analyses contains the R scripts used for analysis and visualization for both the human and LLM portion of the paper, as well as post-hoc analyses.
+The directory data contains the (anonymized) data from the experiment. 
 
-The directory models contains the Python and R scripts used to compare the predictive accuray of OpenAI's text-davinci-003 model under zero and few-shot prompting regimes.
+The directory analyses contains the R scripts used for analysis and visualization, and post-hoc analyses. 
