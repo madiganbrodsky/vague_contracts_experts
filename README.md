@@ -11,8 +11,8 @@ The current (pilot) experiment aims to replicate the human-experimental portion 
 
 This repository that contains the following sub-directories:
 
-The directory experiments contains the code used to run the experiment. 
+The directory `experiments` contains stimuli and code used to run the experiment. 
 
-The directory data contains the (anonymized) data from the experiment. 
+The directory `data` contains the (anonymized) data from the experiment. 
 
-The directory analyses contains the R scripts used for analysis and visualization, and post-hoc analyses. 
+The directory `analyses` contains the R scripts used for analysis and visualization. 
