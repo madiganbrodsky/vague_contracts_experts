@@ -37,15 +37,8 @@ excludedWorkers <- (d %>%
                       summarise(n = n()) %>%
                       filter(n > 1))$workerid
 
-
-#EXCLUDE DUPLICATE WORKERS 
-duplicateworkerids <- c(2, 3, 4, 5, 6, 7, 8, 9)
-
-excludedWorkers_duplicate <- unique((d %>%
-                                       filter(workerid %in% duplicateworkerids))$workerid)
-
 #EXCLUDE WORKERS WHO SELF-REPORT A NATIVE LANGUAGE OTHER THAN ENGLISH
-nonEnglishNativeLanguages <- c("Chinese", "Spanish", "spanish", "Cantonese", "Korean")
+nonEnglishNativeLanguages <- c()
 
 excludedWorkers_nonNative <- unique((d %>%
                                        filter(subject_information.language %in% nonEnglishNativeLanguages))$workerid)
@@ -53,7 +46,6 @@ excludedWorkers_nonNative <- unique((d %>%
 
 d <- d %>% 
   filter(!(workerid %in% excludedWorkers)) %>%
-  filter(!(workerid %in% excludedWorkers_duplicate)) %>% 
   filter(!(workerid %in% excludedWorkers_nonNative))
 
 ########## DATA TRANSFORMATIONS ######### 
@@ -166,9 +158,12 @@ levels(responses$ResponseType) <- c("Individual","Agreement estimate")
 passive.labs <- c("Passive", "Not Passive")
 names(passive.labs) <- c("yes", "no")
 
+center_embedding.labs <- c("Center Embedding", "No Center Embedding")
+names(passive.labs) <- c("yes", "no")
+
 ggplot(responses, aes(x=Response,y=Proportion,fill=Condition,alpha=ResponseType)) +
   geom_bar(stat="identity",position=dodge) +
-  facet_wrap(~passive, labeller = labeller(passive = passive.labs)) +
+  facet_wrap(center_embedding~passive, labeller = labeller(passive = passive.labs)) +
   geom_errorbar(aes(ymin=YMin,ymax=YMax),width=.2,position=dodge) +
   scale_fill_manual(values=cbPalette,labels=c("unambiguous_covered"="Covered","unambiguous_uncovered"="Not covered", "controversial" = "Controversial")) +
   scale_alpha_discrete(range = c(1, .4),name="Response type",labels=c("agreement_estimate"="agreement\nestimate")) +
@@ -176,7 +171,7 @@ ggplot(responses, aes(x=Response,y=Proportion,fill=Condition,alpha=ResponseType)
   scale_x_discrete(labels=c("yes"="Yes","no"="No")) +
   theme(legend.position="top",legend.direction="vertical",
         text=element_text(size=14))
-ggsave("graphs/passive_responses.pdf",width=5,height=3.5)
+ggsave("graphs/responses.pdf",width=5,height=3.5)
 
 names(transformed)
 nrow(transformed)
@@ -204,7 +199,7 @@ ggplot(d_item_responses %>% filter(individual_judgment!="cantdecide")) +
         legend.position = "bottom")
 ggsave("graphs/props_vs_agreement.pdf",width=7.5,height=4)
 
-#update post hoc graph THIS ONE!!! 
+#mean agreement vs. proportion of responses by conditions
 
 perfect_estimates = data.frame(x=c(0,.5,1),y=c(1,.5,1))
 
@@ -224,7 +219,7 @@ ggplot(d_item_responses %>% filter(individual_judgment!="cantdecide")) +
   ylim(0,1) +
   xlab("Proportion of Judgment") +
   ylab("Mean Agreement Estimate") +
-  facet_grid(passive ~ version, labeller = labeller(passive = passive.labs)) + #facet by version 
+  facet_grid(passive ~ version ~center_embedding, labeller = labeller(passive = passive.labs)) + #facet by version 
   theme(text=element_text(size=15),
         legend.position = "bottom")
 ggsave("graphs/props_vs_agreement_bycondition.pdf",width=7,height=3.5)
