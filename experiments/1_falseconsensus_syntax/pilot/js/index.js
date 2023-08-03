@@ -52,6 +52,7 @@ function make_slides(f) {
       this.version = stim.version;
       this.center_embedding = stim.center_embedding; // added for extension
       this.passive = stim.passive;                   // added for extension
+      this.locus_of_uncertainty = stim.locus.of.uncertainty; 
       this.header = stim.header;
       this.continuation = stim.continuation;
       this.title = stim.Title;
