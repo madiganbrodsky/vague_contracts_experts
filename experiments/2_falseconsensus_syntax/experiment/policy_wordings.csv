@@ -35,10 +35,10 @@ House Removal,yes,yes,An incident that occurs with policyholder belongings that 
 House Removal,yes,no,An incident that occurs with professional contractors who move policyholder belongings results in damage to those belongings. ,professional contractors
 House Removal,no,no,An incident occurs with professional contractors who move policyholder belongings. This incident results in damage to those belongings. ,professional contractors
 House Removal,no,yes,An incident occurs with policyholder belongings that are moved by professional contractors. This incident results in damage to those belongings. ,professional contractors
-General Damages,yes,yes,An incident that occurs with a policyholder who is injured by a workplace accident results in missed employment for the policyholder.,workplace
-General Damages,yes,no,An incident that occurs with a workplace accident that injures a policyholder results in missed employment for the policyholder.,workplace
-General Damages,no,no,An incident occurs with a workplace accident that injures a policyholder. This incident results in missed employment for the policyholder.,workplace
-General Damages,no,yes,An incident occurs with a policyholder who is injured by a workplace accident. This incident results in missed employment for the policyholder.,workplace
+General Damages,yes,yes,An incident that occurs with a policyholder who is injured by a workplace hazard results in missed employment for the policyholder.,workplace
+General Damages,yes,no,An incident that occurs with a workplace hazard that injures a policyholder results in missed employment for the policyholder.,workplace
+General Damages,no,no,An incident occurs with a workplace hazard that injures a policyholder. This incident results in missed employment for the policyholder.,workplace
+General Damages,no,yes,An incident occurs with a policyholder who is injured by a workplace hazard. This incident results in missed employment for the policyholder.,workplace
 Escape Of Water,yes,yes,An incident that occurs with water that is released by an internal source in an abrupt and unexpected manner results in damage to the policyholder's property.,abrupt and unexpected
 Escape Of Water,yes,no,An incident that occurs with an internal source that releases water in an abrupt and unexpected manner results in damage to the policyholder's property.,abrupt and unexpected
 Escape Of Water,no,no,An incident occurs with an internal source that releases water in an abrupt and unexpected manner. This incident results in damage to the policyholder's property.,abrupt and unexpected
