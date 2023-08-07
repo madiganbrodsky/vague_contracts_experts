@@ -58,7 +58,7 @@ function make_slides(f) {
       this.policy_wording = stim.policy_wording
       this.title = stim.Title;
 
-      $("#vignette").html(this.header + " <b>\"" + this.policy_wording + "\"</b>" + "<p>" + this.continuation);
+      $("#vignette").html(this.header + "<p> <b>\"" + this.policy_wording + "\"</b>" + "<p>" + this.continuation);
       $("#question").html('<i>1. Do you think that the claim is covered under "' + this.item + '" as it appears in the policy?</i>');
       $("#error_percept").hide();
       $("#error_num").hide();
