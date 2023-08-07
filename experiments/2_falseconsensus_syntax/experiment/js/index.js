@@ -126,6 +126,7 @@ function make_slides(f) {
           "center_embedding": this.center_embedding, //added for extension
           "passive": this.passive,                    //added for extension
           "header" : this.header,
+          "policy_wording" : this.policy_wording,
           "continuation" : this.continuation,
           "time": (new Date()) - this.trial_start,
           "slide_number_in_experiment" : exp.phase,
