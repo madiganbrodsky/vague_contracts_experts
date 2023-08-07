@@ -52,12 +52,13 @@ function make_slides(f) {
       this.version = stim.version;
       this.center_embedding = stim.center_embedding; // added for extension
       this.passive = stim.passive;                   // added for extension
-      this.locus_of_uncertainty = stim.locus.of.uncertainty; 
+      this.locus_of_uncertainty = stim.locus_of_uncertainty; 
       this.header = stim.header;
       this.continuation = stim.continuation;
+      this.policy_wording = stim.policy_wording
       this.title = stim.Title;
 
-      $("#vignette").html(this.header + "<p>" + this.continuation);
+      $("#vignette").html(this.header + " <b>\"" + this.policy_wording + "\"</b>" + "<p>" + this.continuation);
       $("#question").html('<i>1. Do you think that the claim is covered under "' + this.item + '" as it appears in the policy?</i>');
       $("#error_percept").hide();
       $("#error_num").hide();
