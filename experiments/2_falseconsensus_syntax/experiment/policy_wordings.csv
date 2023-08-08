@@ -33,13 +33,8 @@ Personal Accident,no,no,An incident occurs with a vehicular collision that injur
 Personal Accident,no,yes,An incident occurs with a policyholder who is injured by a vehicular collision.This incident results in substantial damage to the policyholder's person.,vehicular collision
 House Removal,yes,yes,An incident that occurs with policyholder belongings that are moved by professional contractors results in damage to those belongings.,professional contractors
 House Removal,yes,no,An incident that occurs with professional contractors who move policyholder belongings results in damage to those belongings.,professional contractors
-<<<<<<< HEAD
-House Removal,no,no,An incident occurs with professional contractors who move policyholder belongings.This incident results in damage to those belongings.,professional contractors
-House Removal,no,yes,An incident occurs with policyholder belongings that are moved by professional contractors.This incident results in damage to those belongings.,professional contractors
-=======
 House Removal,no,no,An incident occurs with professional contractors who move policyholder belongings. This incident results in damage to those belongings.,professional contractors
 House Removal,no,yes,An incident occurs with policyholder belongings that are moved by professional contractors. This incident results in damage to those belongings.,professional contractors
->>>>>>> 8eecb2d28e2dad8aafa0f39f6e041372f4d89d0d
 General Damages,yes,yes,An incident that occurs with a policyholder who is injured by a workplace hazard results in missed employment for the policyholder.,workplace
 General Damages,yes,no,An incident that occurs with a workplace hazard that injures a policyholder results in missed employment for the policyholder.,workplace
 General Damages,no,no,An incident occurs with a workplace hazard that injures a policyholder.This incident results in missed employment for the policyholder.,workplace
@@ -50,12 +45,7 @@ Escape Of Water,no,no,An incident occurs with an internal source that releases w
 Escape Of Water,no,yes,An incident occurs with water that is released by an internal source in an abrupt and unexpected manner.This incident results in damage to the policyholder's property.,abrupt and unexpected
 Trace And Access,yes,yes,An incident that occurs with cables or pipes that are accessed by a skilled professional under reasonable circumstances results in damage to the policyholder's property.,reasonable circumstances
 Trace And Access,yes,no,An incident that occurs with a skilled professional who accesses cables or pipes under reasonable circumstances results in damage to the policyholder's property.,reasonable circumstances
-<<<<<<< HEAD
-Trace And Access,no,no,An incident occurs with a skilled professional who accesses cables or pipes under reasonable circumstances.This incident results in damage to the policyholder's property.,reasonable circumstances
-Trace And Access,no,yes,An incident occurs with cables or pipes that are accessed by a skilled professional under reasonable circumstances.This incident results in damage to the policyholder's property.,reasonable circumstances
-=======
 Trace And Access,no,no,An incident occurs with a skilled professional who accesses cables or pipes under reasonable circumstances. This incident results in damage to the policyholder's property.,reasonable circumstances
 Trace And Access,no,yes,An incident occurs with cables or pipes that are accessed by a skilled professional under reasonable circumstances. This incident results in damage to the policyholder's property.,reasonable circumstances
->>>>>>> 8eecb2d28e2dad8aafa0f39f6e041372f4d89d0d
 Hail Damage,no,no,An incident occurs with hail of such intensity that it results in damage specifically to hard surfaces or breaks glass.,n/a
 Vehicle Theft,no,no,An incident occurs with loss due to theft to policyholder's car or car accessories.,n/a
