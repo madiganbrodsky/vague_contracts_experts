@@ -1,51 +1,51 @@
 item,center_embedding,passive,policy_wording,locus_of_uncertainty
 Escape Of Oil,yes,yes,An incident that occurs with oil that is leaked by a fixed heating installation results in damage to the policyholder's property.,heating installation
 Escape Of Oil,yes,no,An incident that occurs with a fixed heating installation that leaks oil results in damage to the policyholder's property.,heating installation
-Escape Of Oil,no,no,An incident occurs with a fixed heating installation that leaks oil. This incident results in damage to the policyholder's property.,heating installation
-Escape Of Oil,no,yes,An incident occurs with oil that is leaked by a fixed heating installation. This incident results in damage to the policyholder's property.,heating installation
+Escape Of Oil,no,no,An incident occurs with a fixed heating installation that leaks oil.This incident results in damage to the policyholder's property.,heating installation
+Escape Of Oil,no,yes,An incident occurs with oil that is leaked by a fixed heating installation.This incident results in damage to the policyholder's property.,heating installation
 Vehicle Glass,yes,yes,An incident that occurs with vehicle glass that is broken by an external force results in damage to the body work of the policyholder's vehicle.,vehicle glass
 Vehicle Glass,yes,no,An incident that occurs with an external force that breaks vehicle glass results in damage to the body work of the policyholder's vehicle.,vehicle glass
-Vehicle Glass,no,no,An incident occurs with an external force that breaks vehicle glass. This incident results in damage to the body work of the policyholder's vehicle.,vehicle glass
-Vehicle Glass,no,yes,An incident occurs with vehicle glass that is broken by an external force. This incident results in damage to the body work of the policyholder's vehicle.,vehicle glass
+Vehicle Glass,no,no,An incident occurs with an external force that breaks vehicle glass.This incident results in damage to the body work of the policyholder's vehicle.,vehicle glass
+Vehicle Glass,no,yes,An incident occurs with vehicle glass that is broken by an external force.This incident results in damage to the body work of the policyholder's vehicle.,vehicle glass
 Emergency Damages,yes,yes,An incident that occurs with a forced home entry that is made by first responders results in damage to the policyholder's property.,perceived emergency
 Emergency Damages,yes,no,An incident that occurs with first responders who make a forced home entry results in damage to the policyholder's property.,perceived emergency
-Emergency Damages,no,no,An incident occurs with first responders who make a forced home entry. This incident results in damage to the policyholder's property.,perceived emergency
-Emergency Damages,no,yes,An incident occurs with a forced home entry that is made by first responders. This incident results in damage to the policyholder's property.,perceived emergency
+Emergency Damages,no,no,An incident occurs with first responders who make a forced home entry.This incident results in damage to the policyholder's property.,perceived emergency
+Emergency Damages,no,yes,An incident occurs with a forced home entry that is made by first responders.This incident results in damage to the policyholder's property.,perceived emergency
 Malicious Acts Or Vandalism,yes,yes,An incident that occurs with a colorant or stain that is wielded by an adverse third party results in damage to the policyholder's property.,adverse third party
 Malicious Acts Or Vandalism,yes,no,An incident that occurs with an adverse third party that wields a colorant or stain results in damage to the policyholder's property.,adverse third party
-Malicious Acts Or Vandalism,no,no,An incident occurs with an adverse third party that wields a colorant or stain. This incident results in damage to the policyholder's property.,adverse third party
-Malicious Acts Or Vandalism,no,yes,An incident occurs with a colorant or stain that is wielded by an adverse third party. This incident results in damage to the policyholder's property.,adverse third party
+Malicious Acts Or Vandalism,no,no,An incident occurs with an adverse third party that wields a colorant or stain.This incident results in damage to the policyholder's property.,adverse third party
+Malicious Acts Or Vandalism,no,yes,An incident occurs with a colorant or stain that is wielded by an adverse third party.This incident results in damage to the policyholder's property.,adverse third party
 Ground Heave,yes,yes,An incident that occurs with ground movement or landslip that is induced by an external force results in damage to the policyholder's property.,external force
 Ground Heave,yes,no,An incident that occurs with an external force that induces ground movement or landslip results in damage to the policyholder's property.,external force
-Ground Heave,no,no,An incident occurs with an external force that induces ground movement or landslip. This incident results in damage to the policyholder's property.,external force
-Ground Heave,no,yes,An incident occurs with ground movement or landslip that is induced by an external force. This incident results in damage to the policyholder's property.,external force
+Ground Heave,no,no,An incident occurs with an external force that induces ground movement or landslip.This incident results in damage to the policyholder's property.,external force
+Ground Heave,no,yes,An incident occurs with ground movement or landslip that is induced by an external force.This incident results in damage to the policyholder's property.,external force
 Storm Damage,yes,yes,An incident that occurs with lightning that is created by a storm results in damage to the policyholder's property.,create
 Storm Damage,yes,no,An incident that occurs with a storm that creates lightning results in damage to the policyholder's property.,create
-Storm Damage,no,no,An incident occurs with a storm that creates lightning. This incident results in damage to the policyholder's property.,create
-Storm Damage,no,yes,An incident occurs with lightning that is created by a storm. This incident results in damage to the policyholder's property.,create
+Storm Damage,no,no,An incident occurs with a storm that creates lightning.This incident results in damage to the policyholder's property.,create
+Storm Damage,no,yes,An incident occurs with lightning that is created by a storm.This incident results in damage to the policyholder's property.,create
 Vehicle Fire,yes,yes,An incident that occurs with a fire or explosion that is instigated by an external force results in damage to the policyholder's vehicle.,fire
 Vehicle Fire,yes,no,An incident that occurs with an external force that instigates a fire or explosion results in damage to the policyholder's vehicle.,fire
-Vehicle Fire,no,no,An incident occurs with an external force that instigates a fire or explosion. This incident results in damage to the policyholder's vehicle.,fire
-Vehicle Fire,no,yes,An incident occurs with a fire or explosion that is instigated by an external force. This incident results in damage to the policyholder's property.,fire
+Vehicle Fire,no,no,An incident occurs with an external force that instigates a fire or explosion.This incident results in damage to the policyholder's vehicle.,fire
+Vehicle Fire,no,yes,An incident occurs with a fire or explosion that is instigated by an external force.This incident results in damage to the policyholder's property.,fire
 Personal Accident,yes,yes,An incident that occurs with a policyholder who is injured by a vehicular collision results in substantial damage to the policyholder's person.,vehicular collision
 Personal Accident,yes,no,An incident that occurs with a vehicular collision that injures a policyholder results in substantial damage to the policyholder's person.,vehicular collision
-Personal Accident,no,no,An incident occurs with a vehicular collision that injures a policyholder. This incident results in substantial damage to the policyholder's person.,vehicular collision
-Personal Accident,no,yes,An incident occurs with a policyholder who is injured by a vehicular collision. This incident results in substantial damage to the policyholder's person.,vehicular collision
+Personal Accident,no,no,An incident occurs with a vehicular collision that injures a policyholder.This incident results in substantial damage to the policyholder's person.,vehicular collision
+Personal Accident,no,yes,An incident occurs with a policyholder who is injured by a vehicular collision.This incident results in substantial damage to the policyholder's person.,vehicular collision
 House Removal,yes,yes,An incident that occurs with policyholder belongings that are moved by professional contractors results in damage to those belongings.,professional contractors
-House Removal,yes,no,An incident that occurs with professional contractors who move policyholder belongings results in damage to those belongings. ,professional contractors
-House Removal,no,no,An incident occurs with professional contractors who move policyholder belongings. This incident results in damage to those belongings. ,professional contractors
-House Removal,no,yes,An incident occurs with policyholder belongings that are moved by professional contractors. This incident results in damage to those belongings. ,professional contractors
+House Removal,yes,no,An incident that occurs with professional contractors who move policyholder belongings results in damage to those belongings.,professional contractors
+House Removal,no,no,An incident occurs with professional contractors who move policyholder belongings.This incident results in damage to those belongings.,professional contractors
+House Removal,no,yes,An incident occurs with policyholder belongings that are moved by professional contractors.This incident results in damage to those belongings.,professional contractors
 General Damages,yes,yes,An incident that occurs with a policyholder who is injured by a workplace hazard results in missed employment for the policyholder.,workplace
 General Damages,yes,no,An incident that occurs with a workplace hazard that injures a policyholder results in missed employment for the policyholder.,workplace
-General Damages,no,no,An incident occurs with a workplace hazard that injures a policyholder. This incident results in missed employment for the policyholder.,workplace
-General Damages,no,yes,An incident occurs with a policyholder who is injured by a workplace hazard. This incident results in missed employment for the policyholder.,workplace
+General Damages,no,no,An incident occurs with a workplace hazard that injures a policyholder.This incident results in missed employment for the policyholder.,workplace
+General Damages,no,yes,An incident occurs with a policyholder who is injured by a workplace hazard.This incident results in missed employment for the policyholder.,workplace
 Escape Of Water,yes,yes,An incident that occurs with water that is released by an internal source in an abrupt and unexpected manner results in damage to the policyholder's property.,abrupt and unexpected
 Escape Of Water,yes,no,An incident that occurs with an internal source that releases water in an abrupt and unexpected manner results in damage to the policyholder's property.,abrupt and unexpected
-Escape Of Water,no,no,An incident occurs with an internal source that releases water in an abrupt and unexpected manner. This incident results in damage to the policyholder's property.,abrupt and unexpected
-Escape Of Water,no,yes,An incident occurs with water that is released by an internal source in an abrupt and unexpected manner. This incident results in damage to the policyholder's property.,abrupt and unexpected
+Escape Of Water,no,no,An incident occurs with an internal source that releases water in an abrupt and unexpected manner.This incident results in damage to the policyholder's property.,abrupt and unexpected
+Escape Of Water,no,yes,An incident occurs with water that is released by an internal source in an abrupt and unexpected manner.This incident results in damage to the policyholder's property.,abrupt and unexpected
 Trace And Access,yes,yes,An incident that occurs with cables or pipes that are accessed by a skilled professional under reasonable circumstances results in damage to the policyholder's property.,reasonable circumstances
 Trace And Access,yes,no,An incident that occurs with a skilled professional who accesses cables or pipes under reasonable circumstances results in damage to the policyholder's property.,reasonable circumstances
-Trace And Access,no,no,An incident occurs with a skilled professional who accesses cables or pipes under reasonable circumstances. This incident results in damage to the policyholder's property.,reasonable circumstances
-Trace And Access,no,yes,An incident occurs with cables or pipes that are accessed by a skilled professional under reasonable circumstances. This incident results in damage to the policyholder's property.,reasonable circumstances
-Hail Damage,no,no,damage from hail of such intensity that it results in damage specifically to hard surfaces or breaks glass.,n/a
-Vehicle Theft,no,no,loss as a result of theft to the policyholder's car or car accessories.,n/a
+Trace And Access,no,no,An incident occurs with a skilled professional who accesses cables or pipes under reasonable circumstances.This incident results in damage to the policyholder's property.,reasonable circumstances
+Trace And Access,no,yes,An incident occurs with cables or pipes that are accessed by a skilled professional under reasonable circumstances.This incident results in damage to the policyholder's property.,reasonable circumstances
+Hail Damage,no,no,An incident occurs with hail of such intensity that it results in damage specifically to hard surfaces or breaks glass.,n/a
+Vehicle Theft,no,no,An incident occurs with loss due to theft to policyholder's car or car accessories.,n/a
